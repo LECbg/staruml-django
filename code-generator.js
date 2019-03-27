@@ -393,6 +393,7 @@ class DjangoCodeGenerator {
       });
       codeWriter.writeLine();
     }
+    codeWriter.writeLine();
 
     // Class
     line = 'class ' + elem.name;
@@ -486,7 +487,7 @@ class DjangoCodeGenerator {
       codeWriter = new codegen.CodeWriter(this.getIndentString(options));
       
       //codeWriter.writeLine(options.installPath)
-      codeWriter.writeLine('#-*- coding: utf-8 -*-');
+      codeWriter.writeLine('# -*- coding: utf-8 -*-');
       codeWriter.writeLine();
       codeWriter.writeLine(options.djangoModelsPackage);
       codeWriter.writeLine();
@@ -498,7 +499,7 @@ class DjangoCodeGenerator {
       fullPath = basePath + '/' + elem.name + '.py';
       codeWriter = new codegen.CodeWriter(this.getIndentString(options));
       codeWriter.writeLine(options.installPath);
-      codeWriter.writeLine('#-*- coding: utf-8 -*-');
+      codeWriter.writeLine('# -*- coding: utf-8 -*-');
       codeWriter.writeLine();
       this.writeEnum(codeWriter, elem, options);
       fs.writeFileSync(fullPath, codeWriter.getData());
