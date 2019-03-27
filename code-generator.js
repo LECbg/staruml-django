@@ -312,7 +312,8 @@ class DjangoCodeGenerator {
     var tags = asso.tags;
     var tags_str = "";
 
-    // console.log(tags);
+    console.log(tags);
+
     tags_str += getTagsString(tags);
 
     if (tags_str){
@@ -331,7 +332,7 @@ class DjangoCodeGenerator {
             codeWriter.writeLine(var_name + " = models.ForeignKey('" + refObjName + "'" + tags_str + ", on_delete=models.PROTECT)");
           }
         }
-    } else if (asso.end1.reference === elem && asso.end2.navigable === true && asso.end2.multiplicity && asso.end1.multiplicity) {       
+    } else if (asso.end1.reference === elem && asso.end2.navigable === true && asso.end2.multiplicity && asso.end1.multiplicity) {
         if (asso.end1.multiplicity == "1" && asso.end2.multiplicity == "1"){
           var refObjName = asso.end2.reference.name;
           var var_name = asso.name;
@@ -450,26 +451,25 @@ class DjangoCodeGenerator {
       return (rel instanceof type.UMLAssociation);
     });
 
-      // Relations
-      for (var i = 0, len = associations.length; i < len; i++) {
-        var asso = associations[i];
-      	write_pass = !self.writeRealation(codeWriter, elem, asso, options) && write_pass;
-        self.writeRealation(codeWriter, elem, asso, options);
-      }
+    // Relations
+    for (var i = 0, len = associations.length; i < len; i++) {
+      var asso = associations[i];
+      write_pass = !self.writeRealation(codeWriter, elem, asso, options) && write_pass;
+    }
 
-      // from class links
-      associations = this.getClassLinks(elem);
+    // from class links
+    associations = this.getClassLinks(elem);
 
-      // Relations
-      for (var i = 0, len = associations.length; i < len; i++) {
-        var asso = associations[i];
-        write_pass = !self.writeRealation(codeWriter, elem, asso, options) && write_pass;
-      }
-      
+    // Relations
+    for (var i = 0, len = associations.length; i < len; i++) {
+      var asso = associations[i];
+      write_pass = !self.writeRealation(codeWriter, elem, asso, options) && write_pass;
+    }
+
+    if (i > 0) {
       codeWriter.writeLine();
       write_pass = false;
     }
-
 
     // Methods
     if (elem.operations.length > 0) {
@@ -509,10 +509,10 @@ class DjangoCodeGenerator {
 
     // Class
     } else if (elem instanceof type.UMLClass || elem instanceof type.UMLInterface) {
-      
+
       fullPath = basePath + '/' + elem.name.toLowerCase() + '.py';
       codeWriter = new codegen.CodeWriter(this.getIndentString(options));
-      
+
       //codeWriter.writeLine(options.installPath)
       codeWriter.writeLine('# -*- coding: utf-8 -*-');
       codeWriter.writeLine();
