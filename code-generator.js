@@ -565,6 +565,8 @@ function mapBasicTypesToDjangoFieldClass(elem){
     "datetime": "models.DateTimeField",
     "email": "models.EmailField",
     "file": "models.FileField",
+    "image": "models.ImageField",
+    "UUID": "models.UUIDField",
   };
 
   line = type_maps[elem.type.name];
