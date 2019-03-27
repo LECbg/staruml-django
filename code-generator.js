@@ -328,14 +328,14 @@ class DjangoCodeGenerator {
           for (end of [end1, end2]) {
             var refObjName = end.reference.name;
             var var_name = refObjName.toLowerCase();
-            codeWriter.writeLine(var_name + " = models.ForeingKey('" + refObjName + "'" + tags_str + ", on_delete=models.PROTECT)");
+            codeWriter.writeLine(var_name + " = models.ForeignKey('" + refObjName + "'" + tags_str + ", on_delete=models.PROTECT)");
           }
         }
     } else if (asso.end1.reference === elem && asso.end2.navigable === true && asso.end2.multiplicity && asso.end1.multiplicity) {       
         if (asso.end1.multiplicity == "1" && asso.end2.multiplicity == "1"){
           var refObjName = asso.end2.reference.name;
           var var_name = asso.name;
-          codeWriter.writeLine(var_name + " = models.OneToOne('" + refObjName + "'"+ tags_str +")");
+          codeWriter.writeLine(var_name + " = models.OneToOneField('" + refObjName + "'"+ tags_str +")");
         }
 
         if (['0..*', '1..*', '*'].includes(asso.end1.multiplicity.trim()) && asso.end2.multiplicity == "1"){
@@ -355,7 +355,7 @@ class DjangoCodeGenerator {
               tags_str = ', through=' + "'" + references[0].classSide.name + "'" + tags_str;
             }
           }
-          codeWriter.writeLine(var_name + " = models.ManyToMany('" + asso.end2.reference.name + "'"+ tags_str +")");
+          codeWriter.writeLine(var_name + " = models.ManyToManyField('" + asso.end2.reference.name + "'"+ tags_str +")");
         }
     }
   }
